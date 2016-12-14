@@ -1,0 +1,139 @@
+一、上层应用层文件修改
+
+Java文件：
+-----------------
+<pre><code>
+package com.android.Route;//路径
+public class JavaClass {
+    static {
+        System.loadLibrary("devicejni");//导入lib
+    }
+    public static native int methodA();//定义接口方法
+}
+</code></pre>
+
+CPP文件：
+----------------------------
+<pre><code>
+#include <&lt;stdlib.h>
+#include <&lt;stdio.h>
+#include <&lt;jni.h>
+#include <&lt;fcntl.h>
+#include <&lt;string.h>
+#include <&lt;stddef.h>
+
+#define	DOORLOCK_NAME  "/dev/deviceName"  //驱动定义设备名字
+#ifdef __cplusplus //如果是C++文件 则需要定义编译类型为C不然编译后无法调用
+extern "C" {
+#endif
+int startDoorPinA();
+JNIEXPORT jint JNICALL Java_com_android_Route_JavaClass_methodA //Java_路径_类名_方法名
+(JNIEnv *env, jobject obj)
+{
+    return startDoorPinA();//C的功能实现或方法调用
+}
+int startDoorPinA()
+{
+	int fd;
+	fd = open(DOORLOCK_NAME, O_RDONLY);  //打开设备， 注意：这里有权限问题，下面单独拿出来说明
+	if(fd<0){
+  		close(fd);
+      return -1;
+	}
+  if ((-1 == ioctl(fd, Param))) { //调用参数/方法接口（可能描述有误，反正这里是驱动给的接口）
+	    close(fd);
+      return -1;
+  }
+	close(fd);
+	return 0;
+}
+#ifdef __cplusplus //对应上面C++的判断
+}
+#endif
+</code></pre>
+
+CPP文件中打印Log：
+--------------------------
+<pre><code>
+#define LOG_TAG  "TAG" //定义tag
+#include <android/log.h>
+#include <utils/Log.h>
+#define LOGI(fmt, args...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, fmt, ##args) //定义方法
+#define LOGD(fmt, args...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, fmt, ##args) //定义方法
+#define LOGE(fmt, args...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, fmt, ##args) //定义方法
+LOGE("startDoorPinA %s",111);
+</code></pre>
+
+Android.mk（和CPP文件同级）
+--------------------------------------
+<pre><code>
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_MODULE := libdevicejni
+LOCAL_LDLIBS := -llog
+LOCAL_SRC_FILES := devicejni_DEVICEJNI.cpp
+LOCAL_C_INCLUDES += $(JNI_H_INCLUDE)
+LOCAL_SHARED_LIBRARIES := libdl libutils libcutils libfile_op libnvram
+LOCAL_MULTILIB := 32
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+include $(BUILD_SHARED_LIBRARY)
+</code>
+</pre>
+
+<p>  生成的so文件路径： out/target/product/6580_we_l/system/lib/libdevicejni.so</p>
+
+
+Android.mk（和src，res，jni文件夹同级）
+------------------------------
+<pre><code>
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_MODULE_TAGS := optional
+LOCAL_JNI_SHARED_LIBRARIES := libdevicejni
+LOCAL_SRC_FILES := $(call all-java-files-under, src) \
+LOCAL_PACKAGE_NAME := ApkName
+LOCAL_CERTIFICATE := platform
+LOCAL_MULTILIB := 32
+include $(BUILD_PACKAGE)
+# Use the following include to make our test apk.
+include $(call all-makefiles-under,$(LOCAL_PATH))
+</code></pre>
+
+
+
+二、关于新添加的设备读写权限修改
+================================
+<p> mydevice:是自己定义的设备名字  deviceName：是驱动声明的名字（和上面引用的一样）</p>
+<p> 这里可能对文件的功能描述有不当的地方</p>
+
+添加设备权限 \device\mediatek\common\sepolicy\platform_app.te
+-------------------------------------
+<p>这里添加了 read open ioctl 其他可根据需求</p>
+<pre><code>
+allow platform_app mydevice:chr_file { read open ioctl };
+</code></pre>
+
+声明设备 \device\mediatek\common\sepolicy\file_contexts
+---------------------------
+<pre><code>
+/dev/deviceName u:object_r:mydevice:s0
+</code></pre>
+
+声明设备种类 \device\mediatek\common\sepolicy\device.te
+-------------------------------------
+<pre><code>
+type mydevice, dev_type;
+</code></pre>
+
+<pre><code>
+</code></pre>
+
+<pre><code>
+</code></pre>
+
+<pre><code>
+</code></pre>
+
+<pre><code>
+</code></pre>
