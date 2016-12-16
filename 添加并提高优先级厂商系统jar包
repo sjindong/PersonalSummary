@@ -1,0 +1,23 @@
+添加framework.jar包：
+---------------------------------
+framework.jar包 放入对应libs下面， 然后 右键“add as lib...”
+
+右键项目“Project Structure” ---> "app" ---> "Dependencies" ---> "Scope"
+对应jar包的Scope设置为"Provided"，并且移动到第一行
+
+修改jar包优先级
+----------------------------------------
+根目录下build.gradle查找文件中对应的allprojects代码
+<pre><code>
+allprojects {
+    repositories {
+        jcenter()
+    }
+    //以下为添加内容
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs.add('-Xbootclasspath/p:app\\libs\\framework.jar')
+        }
+    }
+}
+</code></pre>
