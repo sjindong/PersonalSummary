@@ -12,7 +12,7 @@ public class JavaClass {
 }
 </code></pre>
 
-CPP文件：
+CPP文件 cppfile.cpp：
 ----------------------------
 <pre><code>
 #include <&lt;stdlib.h>
@@ -64,14 +64,14 @@ CPP文件中打印Log：
 LOGE("startDoorPinA %s",111);
 </code></pre>
 
-Android.mk（和CPP文件同级）
+Android.mk（和CPP文件同级（一个文件夹中））
 --------------------------------------
 <pre><code>
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE := libdevicejni
 LOCAL_LDLIBS := -llog
-LOCAL_SRC_FILES := devicejni_DEVICEJNI.cpp
+LOCAL_SRC_FILES := cppfile.cpp
 LOCAL_C_INCLUDES += $(JNI_H_INCLUDE)
 LOCAL_SHARED_LIBRARIES := libdl libutils libcutils libfile_op libnvram
 LOCAL_MULTILIB := 32
@@ -83,6 +83,12 @@ include $(BUILD_SHARED_LIBRARY)
 
 <p>  生成的so文件路径： out/target/product/6580_we_l/system/lib/libdevicejni.so</p>
 
+Android.mk（jni下一级，不属于任何文件夹）
+------------------------------
+<pre><code>
+LOCAL_PATH:= $(call my-dir)
+include $(call all-makefiles-under,$(LOCAL_PATH))
+</code></pre>
 
 Android.mk（和src，res，jni文件夹同级）
 ------------------------------
