@@ -15,6 +15,7 @@ Android 屏幕适配方案[http://blog.csdn.net/lmj623565791/article/details/454
 Android架构思考：模块化、多进程[http://mp.weixin.qq.com/s?__biz=MzA5MzI3NjE2MA==&mid=2650238737&idx=1&sn=e28e0ca6a112c730f157483dd6d83a41&chksm=88639e7ebf14176875438d6351e5936d762c46f38d8a292d4ab3817f5ba7ed7a58280009314e&mpshare=1&scene=23&srcid=0302Jst0Y7JF7zGPWJoucorq#rd]
 Android Transition Framework详解---超炫的动画框架[http://mp.weixin.qq.com/s?__biz=MzI0NTcxNTg5Mg==&mid=2247483977&idx=1&sn=681f599fa655c10f8682457f4c15a2a2&chksm=e94b0492de3c8d845cd02e72102c6e244eea75cd21f56c7cc596aa44a6fcea525a08438ad462&mpshare=1&scene=23&srcid=0302GDACYQl7E6nmK2cQsnXA#rd]
 用okhttp实现webSocket长连接[http://blog.csdn.net/tong6320555/article/details/52300537]
+Android 使用Socket实现服务器与手机客户端的长连接六：二次封装[http://blog.csdn.net/lovoo/article/category/6187067]
 
  Android RSA加密解密[http://blog.csdn.net/jdsjlzx/article/details/41441147]
  在Android使用RSA 算法加解密[http://blog.csdn.net/l_serein/article/details/7033655]
