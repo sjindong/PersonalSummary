@@ -1,0 +1,21 @@
+1.下载镜像文件
+   https://www.raspberrypi.org/downloads/raspbian/
+
+2.解压文件
+   unzip 文件名
+
+3.查看TF卡 的设备名
+sudo fdisk -l
+
+例如，这里返回的结果我的TF卡是：/dev/sdc
+Device     Boot Start      End  Sectors  Size Id Type
+/dev/sdc1        8192    93813    85622 41.8M  c W95 FAT32 (LBA)
+/dev/sdc2       94208 15523839 15429632  7.4G 83 Linux
+
+4.写入镜像文件
+    sudo dd if=2017-09-07-raspbian-stretch-lite.img of=/dev/sdc  bs=2M
+
+    dd命令来将镜像文件写入到TF卡内。
+    if=后面的是镜像文件名；
+    of=后面是读卡器的设备路径。
+    执行命令等它执行完毕。这个步骤时间比较长

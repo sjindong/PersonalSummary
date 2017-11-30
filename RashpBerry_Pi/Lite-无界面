@@ -1,0 +1,8 @@
+安装FTP传输
+sudo apt-get install vsftpd
+输入指令：sudo nano /etc/vsftpd.conf
+找到"write_enable=YES"配置，删除前面的‘#’符号
+按下：Ctrl+x，选择y，回车保存；
+（修改的时候要非常小心，不要修改到无关的配置）
+重启 vsftp服务器：
+输入：sudo /etc/init.d/vsftpd restart

@@ -1,0 +1,14 @@
+
+	#新建此空白文件，文件名不含任何扩展名，仅“ssh”
+	# 连接wifi后，通过路由器确定ip地址
+	#通过ssh 安装xrdp桌面， 使用windows远程桌面连接到树莓派
+	#
+	#我这边使用Xshell 来通过ssh 连接树莓派（IP从路由器获知）
+	# username:  pi
+	# 默认 password: raspberry
+	###修改密码： sudo passwd（好像没有改成功）
+	##新密码：XXXX
+	#进行远程
+	#sudo apt-get install xrdp
+	#直接进入图形化界面
+	# startx
