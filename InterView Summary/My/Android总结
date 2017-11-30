@@ -1,0 +1,297 @@
+1. 各种框架设计的目的和思想
+RXJava：扩展的观察者模式
+OkHttp:  Build模式 http://www.cnblogs.com/chendu123/p/6074663.html
+CallServerInterceptor 使用责任链模式｛它包含了一些命令对象和一系列的处理对象，每一个处理对象决定它能处理哪些命令对象，它也知道如何将它不能处理的命令对象传递给该链中的下一个处理对象。该模式还描述了往该处理链的末尾添加新的处理对象的方法。｝
+● OkHttpClient 实现 Call.Factory，负责为 Request 创建 Call；
+● RealCall 为具体的 Call 实现，其 enqueue() 异步接口通过 Dispatcher 利用ExecutorService 实现，而最终进行网络请求时和同步 execute() 接口一致，都是通过getResponseWithInterceptorChain() 函数实现；
+● getResponseWithInterceptorChain() 中利用 Interceptor 链条，分层实现缓存、透明压缩、网络 IO 等功能；
+EventBus：观察者模式
+BufferKnife（黄油刀）:通过自定义注解，会扫面相应的注解，生成$$ViewBinder类（实现ViewBinder接口）http://blog.csdn.net/zcxwww/article/details/52205832
+
+2. mvp，mvc，mvvm
+缺陷：mvc，vc耦合严重，mvp就p容易代码爆炸
+mvvm ： data binding
+
+3. 安卓四大组件
+Activity，Service,Broadcast Receiver,Content Provider
+Activity:  生命周期 和跳转流程
+
+
+
+Activity的四种启动方式：
+1. standard		默认模式，创建新的实例，允许多个相同Activity叠加
+2. singleTop		可以有多个实例，但是不允许相同Activity叠加（即Activity在栈顶的时候，启动相同的Activity不会创建新的实例，而是调用其onNewIntent方法）
+3. singleTask		只有一个实例，在同一应用程序中启动时，不存在则当前task新建一个实例；若存在，则会把task中在其之上的其他Activity.destory掉并调用onNewIntent方法
+4. singleInstance	只有一个实例，并且这个实例独立运行在一个task中，这个task只有这个实例，不允许有别的Activity存在
+Service：
+Activity 两种启动Service的方式：
+①Context.startService()方式的生命周期：
+启动时，startService –> onCreate() –> onStart()
+停止时，stopService –> onDestroy()
+②Context.bindService()方式的生命周期：
+绑定时,bindService -> onCreate() –> onBind()
+调用者退出了，即解绑定时,Srevice就会unbindService –>onUnbind() –> onDestory()
+
+onCreate()方法只会在Service第一次被创建的时候调用，而onStartCommand()方法在每次		启动服务的时候都会调用
+stopService()只会让Service停止，unbindService()只会让Service和Activity解除关系
+一个Service必须要在既没有和任何Activity关联又处理停止状态的时候才会被销毁。
+
+BroadcastReceiver：
+广播类型：
+普通广播（Normal Brodacast） ：开发者自身定义的intent广播
+系统广播（System Brodacast） ：系统本身 发出的一些消息
+有序广播（Ordered Brodacast）：针对接收者，按先后顺序接收（Priority属性从大到小），Priority属性相同，动态注册优先；先收到的接收者可对广播消息进行修改
+App应用内广播（Local Brodacast）：
+   全局系统性广播存在不安全，体现在广播可能被其他app截取或接收伪造的消息
+   该类型的广播只存在于本APP应用内，注册广播时，将exported属性设置false
+粘性广播（Sticky Brodacast）：不使用（不用了解）
+
+ 注册广播事件：有2种注册方式 ，都需要IntentFliter
+1：静态注册，直接在AndroidManifest.xml文件中定义
+2：动态注册，代码Context.registerReceiver注册（广播接收器相当于收到个匿名类）
+动态广播 要在 Activity的 onResume()注册， onPause()注销，
+原因：防止内存泄漏（重复注册，重复注销也不允许）
+
+ContentProvider：
+
+4. UI绘制
+
+
+
+Measure:
+Viewde measure方法是final的，不允许重载，View子类只能重载onMearsure()来测量
+View的getMeasuredWidth() 和 Height() 方法  必须保证 在Measure流程后调用
+
+Layout:
+View.layout()可重载，ViewGroup不可以重载
+measure操作完成后得到的是对每个View经测量过的measuredWidth和Height，layout操作完成后是对每个View进欣位置分配后的mLeft、没Top、mRight、mBottom,都是相对于父View
+所有layout_XXXX属性都是针对View的ViewGroup，没有父容器则该属性没有意义
+使用View的getWidth()和 Heigth()来获取View的宽高，必须在layout方法结束后调用
+Draw:
+View默认不进行绘制，都是在子View中绘制
+View为ViewGroup，则需要递归绘制其所包含的所有子View
+默认情况下View的ViewGroup.drawChild绘制顺序和子View的添加顺序一致，但可以重载ViewGroup.getChildDrawingOrder()方法提供不同顺序
+requestLayout:
+  会调用measure和layout过程， 不会进行draw重绘
+
+5. ActivityManager/ServiceManager/WindowsManager
+
+6. 6种的布局：
+    a. LinearLayout、线性布局
+    b. RelativeLayout、相对布局
+    c. FrameLayout、帧布局
+    d. TableLayout、表格布局
+    e. AbsoluteLayout、绝对布局
+    f. ConstrainLayout、约束布局
+
+7. 常用的数据存储：文件、Sqlite、SharePrefence、ContentProvider、网络存储
+    a. SharedPreferences
+        i. 在创建SharedPreferences时，指定MODE_WORLD_READABLE模式（共享其他）
+        ii. 创建其他应用程序对应的Context： Context pvCount = createPackageContext("包名",Context.CONTEXT_IGNORE_SECURITY);
+        iii. 使用其他应用程序对应的Context：SharedPreferences read = pvCount.getSharedPreferences("lock",Context.MODE_WORLD_READABLE);
+        iv. 如果是写入数据，使用Editor接口即可
+SharedPreferences对象和数据库比，相对方便简洁，但是只能存储简单数据，无法条件查询
+    b. Files文件存储
+        i. 核心原理：Context提供两个方法来打开数据文件里的文件IO流 FileInputStream.openFileInput(String name);  和 FileOutputStream(String nmae,int mode); 这两个方法第一个参数是指定文件名；第二个参数指定打开文件的模式。
+        ii. 读写sdcard上的文件
+            1. 判断有没有SD卡权限
+            2. 调用Environment的getExternalStorageState()方法判断SD卡有没有
+            3. 调用Environment.个体ExternalStorageDirectory()来获取外部存储器目录，也就是SD卡目录，或者使用“/mnt/sdcard/目录”
+            4. 使用IO流操作SD卡上的文件
+    c. SQLite数据库存储
+        i. db.executeSQL(String sql);
+        ii. db.executeSQL(String sql,Object[] bindArgs);
+        iii. db.insert(String table,String  nullColumbHack,ContentValues values);
+        iv. db.update(String table,Contentvalues values,String whereClause,String whereArgs);
+        v. db.delete(String table,String whereClause,String whereArgs);
+        vi. db.rawQuery(String sql,String[] selectionArgs);
+        vii. db.query(复杂的一连串参数);
+            1. 会返回个Cursor对象，代表数据集的游标
+c.move(int offset); //以当前位置为参考,移动到指定行
+c.moveToFirst();    //移动到第一行
+c.moveToLast();     //移动到最后一行
+c.moveToPosition(int position); //移动到指定行
+c.moveToPrevious(); //移动到前一行
+c.moveToNext();     //移动到下一行
+c.isFirst();        //是否指向第一条
+c.isLast();     //是否指向最后一条
+c.isBeforeFirst();  //是否指向第一条之前
+c.isAfterLast();    //是否指向最后一条之后
+c.isNull(int columnIndex);  //指定列是否为空(列基数为0)
+c.isClosed();       //游标是否已关闭
+c.getCount();       //总数据项数
+c.getPosition();    //返回当前游标所指向的行数
+c.getColumnIndex(String columnName);//返回某列名对应的列索引值
+c.getString(int columnIndex);   //返回当前行指定列的值
+    d. ContentProvider存储数据
+    e. 网络存储
+
+8. 网络通信
+
+1. HTTP中GET 和POST方式的区别：
+    a. GET 是从服务器上获取数据，
+    b. POST是向服务器提交数据；
+    a. GET是通过URL提交数据，数据在URL中可以看到，
+    b. POST是将数据放在HTMLHeader中提交；
+    a. GET提交的数据不能大雨2k（由于URL长度限制）
+    b. POST没有限制（如果有 那也是服务端限制）
+数据为中文字符且 非敏感数据 可以用GET； 输入没中文字符且敏感数据则用POST
+
+2. HTTP返回请求数据的三种方式
+    a. 以HTML代码内容返回
+    b. 以XML字符串返回，
+    c. 以JSON对象返回（便于解析）
+
+3. 发送HTTP请求的方式有两种：HttpURLConnection 和 HttpClient
+    a. HttpClient：
+        i. 创建代表客户端的HttpClient对象
+        ii. 创建代表请求的对象（HttpGet 可以拼接在URL后，HttpPost要使用setEntity）
+        iii. HttpClient.execute发送请求，获得服务器返回的HttpResponse对象
+        iv. 服务器发给客户端有个相应码标记状态：200正常；404客户端错误；505服务端错误；
+    b. HttpURLCOnnection：
+需要有编码格式设置 和服务器保持一致
+
+4. Json 和 XML 解析
+json数据体积小，和js交互方便，解析速度快，适合少量数据解析
+xml对数据的描述性更好，适合大量数据解析
+
+9. 事件分发机制
+              Activity    		ViewGroup		View
+    a. dispatchTouchEvent()分发：			1			2			3
+    b. onInterceptTouchEvent()拦截：						2			=
+    c. onTouchEvent()消费：					1			2			3
+
+
+10. 动画机制
+    a. 帧动画：一般应用等待的时间使用， 比较消耗资源（需要ImageView来显示）
+    b. 补间动画：由初始状态 向终极状态转变，自动补出中间状态；
+缺陷：不具备交互性（只有初始的：位移、旋转、缩放、透明）；
+ 只是个动画效果，组件骑士还在原来位置上，xy没有改变。
+    c. 属性动画：组件的位置发生了真实的改变，而且在动画过程中组件的位置是实时改变的。
+        i. translationX 和translationY： 空盒子VIew从富容器的左上角的偏移
+        ii. rotation、rotationX、rotationY：控制View围绕支点进行2D和3D的旋转
+        iii. scaleX、scaleY：控制View围绕支点进行2D缩放
+        iv. x、y：描述View对象在富容器的最终位置
+        v. privotX、privotY：控制View支点的位置，默认View的中心
+        vi.   alpha：透明度
+    d. 值动画（ValueAnimator）：本身不提供任何动画效果，更像一个数值发生器，用来产生一定规律的数字，调用者通过这个过程来执行自己特定的动画逻辑
+    e. 布局动画：
+    f. 插值器：
+    g. CircularReveral：5.0后添加的效果
+
+11. Handler 和 多线程
+    a. 进程：. 进程 当一个程序进入内存运行时，即变成一个进程。进程是处于运行过程中的程序。 进程是操作系统进行资源分配和调度的一个独立单位。 进程的三个特征：
+        i. 独立性 独立存在的实体，每个进程都有自己独立私有的一块内存空间。
+        ii. 动态性 程序只是一个静态的指令集合，而进程是一个正在系统中活动的指令集合。
+        iii. 并发性 多个进程可在单处理器上并发执行
+    b. 线程：线程是操作系统能够进行运算调度的最小单位，它被包含在进程之中，是进程中的实际运作单位。线程也被称作轻量级进程。线程在进程中是独立，并发的执行流。
+    c. 线程和进程的区别
+        i. 线程是进程的组成部分，一个进程可以有很多线程，每条线程并行执行不同的任务。
+        ii. 不同的进程使用不同的内存空间，而线程与父进程的其他线程共享父进程的所拥有的全部资源。这样编程方便了，但是要更加小心。
+        iii. 别把内存空间和栈内存搞混，每个线程都拥有单独的栈内存用来存储本地数据。线程拥有自己的堆栈、自己的程序计数器和自己的局部变量，但不拥有系统资源。
+        iv. 线程的调度和管理由进程本身负责完成。操作系统对进程进行调度，管理和资源分配。
+    d.  多线程的优势
+        i. 进程之间不能共享内存，但线程之间共享内存。
+        ii. 系统创建进程时需要为该进程重新分配系统资源，但创建线程则代价小很多，效率高。
+        iii. 资源利用率更好
+        iv. 程序设计更简单
+        v. 程序响应更快 后三条详细见http://ifeve.com/benefits/
+    e.  用Runnable还是ThreadJava以及创建线程两种方法对比？
+在java多线程中，一般推荐采用实现Runnable接口来创建多线程，因为实现Runnable接口相比继承Thread类有如下优劣势：
+● 实现Runnable接口，线程类只是实现了接口，还可以继承其他类；继承Thread类的话，不能再继承其他父类。
+● 实现Runnable接口，多个线程可以共享同一个target对象，所以适合多个相同程序代码的线程区处理同一资源的情况。分离数据和代码，体现面向对象的思想。
+● 实现Runnable接口，访问当前线程，必须使用Thread.currentThread()方法；继承Thread类的话，使用this获得当前线程。 与http://blog.csdn.net/ns_code/article/details/17161237互补。
+    f. Thread 类中的start() 和 run() 方法有什么区别？
+        i. start()方法被用来启动新创建的线程，而且start()内部调用了run()方法，这和直接调用run()方法的效果不一样。
+        ii. 当你调用run()方法的时候，只会是在原来的线程中调用，没有新的线程启动，start()方法才会启动新线程。 需要特别注意的是：不能对同一线程对象两次调用start()方法。
+    g. Handler消息传递机制
+        i. 啊
+    h. LayoutManager
+        i. http://blog.csdn.net/lylodyf/article/details/52846602
+    i. SurfaceView
+    j. Java线程五种状态：
+        i. 新建状态（New）：当线程对象创建后，即进入了新建状态。仅仅由java虚拟机分配内存，并初始化。如：Thread t = new MyThread();
+        ii. 就绪状态（Runnable）：当调用线程对象的start()方法（t.start();），线程即进入就绪状态。处于就绪状态的线程，java虚拟机创建方法调用栈和程序计数器，只是说明此线程已经做好了准备，随时等待CPU调度执行，此线程并 没有执行。
+        iii. 运行状态（Running）：当CPU开始调度处于就绪状态的线程时，执行run()方法，此时线程才得以真正执行，即进入到运行状态。注：绪状态是进入到运行状态的唯一入口，也就是说，线程要想进入运行状态执行，首先必须处于就绪状态中；
+        iv. 阻塞状态（Blocked）：处于运行状态中的线程由于某种原因，暂时放弃对CPU的使用权，停止执行，此时进入阻塞状态，直到其进入到就绪状态，才 有机会再次被CPU调用以进入到运行状态。根据阻塞产生的原因不同，阻塞状态又可以分为三种：
+            1. 等待阻塞 – 运行状态中的线程执行wait()方法，使本线程进入到等待阻塞状态，JVM会把该线程放入等待池中；
+            2. 同步阻塞 – 线程在获取synchronized同步锁失败(因为锁被其它线程所占用)，它会进入同步阻塞状态；
+            3. 其他阻塞 – 通过调用线程的sleep()或join()或发出了I/O请求时，线程会进入到阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。
+        v. 死亡状态（Dead）：线程run()方法执行完了或者因异常退出了run()方法，该线程结束生命周期。 当主线程结束时，其他线程不受任何影响。
+    k. http://www.androidchina.net/2987.html
+12. 内存管理优化 内存分配
+http://blog.csdn.net/hknock/article/details/47322005
+
+13. NDK
+14. AIDL全称和 工作原理
+Android Interface definition language
+一种Android内部进程通信接口的描述语言
+15. tcp和upd的区别
+16. 插件化：DroidPlugin、RePlugin（360开源）
+17. 基本的算法
+http://blog.csdn.net/yangxi_pekin/article/details/31745993
+18. 设计模式
+http://www.cnblogs.com/maowang1991/archive/2013/04/15/3023236.html
+总体来说设计模式分为三大类：
+创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。
+结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
+行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。
+其实还有两类：并发型模式和线程池模式。用一个图片来整体描述一下：
+19. 对象或者基本数据类型的转型
+
+20. 加密算法Rsa
+
+21. HashMap 无序的，链式存储的  ；TreeMap和LinkedHashMap是有序的
+
+22. 最新的控件
+    a. Handing lifecycles
+    b. LiveData
+    c. ViewModel
+    d. Room
+23. 资源文件种类
+    a. res/Animator  属性动画：定义起始、结束、动作、重复时间等参数
+    b. res/anim  补间动画：定义起始、结束
+    c. res/color  颜色列表
+    d. res/drawable 存放真实的位图文件，drawable对象及子类对象的xml文件
+    e. res/layout  界面布局文件目录
+    f. res/menu  菜单文件目录
+    g. res/raw  原生资源，与assets作用相同，通过调用openRawResource(int) 方法获取io输入流;不会编译成二进制形式
+    h. assets  更高自由度，不受android平台约束，通过文件名方式访问；（可以任意子目录）
+    i. res/transition  过渡动画
+    j. res/value存放 字符串、整数、颜色、数组；这些xml文件资源的根元素是Resource
+    k. res/xml 原生xml文件，可以使用Resource.getXML()方法进行访问
+24. 异步加载方式：
+    a. 多线程/线程池；
+    b. AsynTask
+25. 描述下socket实现原理
+    a. TCP连接
+        i. 三次握手
+            1. 客户端发送syn包（syn=j）到服务器，syn_send
+            2. 服务器返回确认信息 syn_recev
+            3. 客户端返回确认信息  两端进入 established
+    b. Http连接
+        i. 特点是：客户端发送的每次请求都需要服务器返回响应，在请求结束后，会主动释放连接
+        ii. Http1.0，客户端每次请求都要求建立一次单独的连接
+        iii. Http1.1，可以在一次连接中处理多个请求，并且多个请求可以重叠进行
+        iv. Http连接是一种“短链接”，要保持客户端程序的在线状态，需要不断向服务器发起请求，服务器
+    c. Socket原理
+        i. socket是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元。它是网络通信过程中端点的抽象表示，包含进行网络通信必须的五中信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。
+        ii. 应用层通过传输层进行数据通信时，TCP会遇到同时为多个应用程序进程提供并发服务的问题。多个TCP连接或多个应用程序进程可能需要通过同一个TCP协议端口传输数据。为了区别不同的应用程序进程和连接，许多计算机操作系统为应用程序与TCP/IP协议交互提供了Socket接口。应用层可以和传输层通过Socket接口，区分来自不同应用程序进程或网络连接的通信，实现数据传输的并发服务。
+26. 描述下广播实现原理(观察者模式）
+    a. 广播使用了观察者模式，基于消息的发布/订阅事件模型。将广播的发送者和接收者极大程度上解耦。
+    b. 广播接收者BroadcastReceiver通过Binder机制想AMS进行注册；
+    c. 广播发送者通过binder机制想AMS发送广播；
+    d. AMS查找符合相应条件的BroadcastReceiver，将广播发送到BroadcastReceiver相应的消息循环队列；
+    e. 消息循环执行拿到此广播，回调BroadcastReceiver中的onReceive()方法
+
+27. 请编写网络请求图片的下载和展示过程
+http://www.cnblogs.com/_ymw/p/4140418.html
+
+28. 简述Activity/Window/View 三者的关系和差别
+    a. Activity是应用程序的载体，维护应用程序的生命周期，
+    b. Activity内部组合了一个Window抽象类（attach 方法获得）。在onCreate()方法中调用setContentView，实际上是调用的window的setContentView，所以界面绘制全部是由Window类的实现类来完成的
+    c. Window中有个DecorView，可以说是“ViewRoot”，创建后会调用mContentParent.addView(view,params) 来添加VIew。
+        i. 总结：Activity在onCreate时调用attach方法，在attach方法中会创建Window对对象。
+        ii. Window对象创建时并没有创建DocerView对象。
+        iii. 用户在Activity中调用setContentView，然后调用window的setContentView，这时会检查DecorView是否存在，如果不存在则创建DecorView对象，然后把用户自己的View添加到DecorView中。
+29. 啊

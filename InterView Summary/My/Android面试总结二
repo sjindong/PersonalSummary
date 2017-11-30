@@ -1,0 +1,52 @@
+1. 自定义View加载大图片（滑动效果）
+2. Html混合开发 调用问题
+3. Java反射 代理问题原理
+4. Sqlite添加 type命令
+5. io使用 好处 原理
+6. linux操作
+7. 分版本打包
+
+8. 简述taskAffinity及其应用场景
+9. 简述为什么调用Looper.prepare()就在当前线程关联了一个Looper对象，它是如何实现的
+10. 简述service中onStartCommand的集中返回值及其含义，并说明系统默认使用何种策略
+
+11. 一场属于Runtime Exception的是
+12. HttpHeader 和缓存控制相关
+13. AIDL支持那种数据类型
+14. Android布局文件常用的长度大小单位描述 dp sp px
+15. GLSurfaceView特性
+16. 描述Android系统架构
+17. 简述Observer设计模式，并画出Observer的典型结构类图
+18. 启动一个程序，可以主界面点击图标进入，也可以冲一个程序汇总跳转过去，二者有什么区别
+19. 什么是嵌入式实时操作系统，Android操作系统属于实时操作系统吗？
+20. 什么认识ANR？如何避免他？（已经有了 参考内存）
+21. 在Android中，请简述jni调用过程
+22. 简述MVC、MVP、MVVM开发模式的理解
+23. 编写程序， 计算学生平均成绩，把原有的数据和计算出的平均分数存放到磁盘文件stud中
+24. 编写程序，有客户端和服务器端，客户端发送字符串，服务器打印到命令行后返回字符串长度，客户端输出字符串长度。
+25. 编写程序，继承SQLiteOpenHelper实现创建版本为1的数据库；创建表（包含id逐渐并自增长，topic字符型100长度，content字符型1000长度）；在数据库版本变化时删除表，并重新创建表
+
+26. Intent传递数据
+27. ListView和RecyclerView分别直接继承自
+28. ArrayList,HashMap,ArrayMap默认容量
+29. 属性动画要求动画作用的对象提供该属性的方法
+30. Fragement的生命周期方法
+31. 对象的引用的四种级别： http://www.cnblogs.com/lwbqqyumidi/p/4151833.html
+    a. Strong reference     - 强引用
+    b. Soft Reference        - 软引用
+    c. Weak Reference      - 弱引用
+    d. Phantom Reference - 虚引用
+32. PopupWindow和Dialog的区别
+33. Android布局优化的措施有哪些
+34. 阐述图片加载的流程
+35. 以请求网络获取天气为例子，设计MVP中的接口，简要描述各接口间的逻辑处理
+
+36. 蓝牙BLE
+37.
+1、3年以上Android开发经验，对移动产品有强烈兴趣有成熟产品开发经验，有安卓平台上架作品或相关作品优先考虑；
+2、熟悉Android平台开发及相关框架原理，并熟悉相关工具和测试及打包流程；
+3、熟悉AndroidUI（界面）设计，熟悉SocketHttp网络编程及应用，熟悉GETPOST请求及JSON格式数据解析；
+4、对Android应用生命周期、内存优化、缓存、加载机制、多线程等方面有深入理解；
+5、熟悉各种技术文档，并具有优秀的编写能力和良好的文档规范性和良好的编程习惯；
+6、具有良好的团队合作精神和沟通能力，工作扎实认真高效，能接受挑战和承受工作压力。
+7、培养方向：Android技术主管。
