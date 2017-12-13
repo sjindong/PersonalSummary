@@ -1,0 +1,22 @@
+环境配置：
+###  配置昵称
+    git config --global user.name "昵称"
+
+###  配置邮箱
+    git config --global user.email "邮箱"
+
+###  拷贝项目到本地
+    git clone http://.......git
+
+### 生成密钥（这里会要求输入密码之类的，建议直接三个回车键）
+    ssh-keygen -t rsa -C "邮箱"
+window生成文件路径：C:\Documents and Settings\用户名\.ssh
+linux参考路径： cd ~/. ssh
+
+### 将 rsa.pub 文件中内容 拷贝到 github网站的  setting -> ssh&GPG key的
+
+### 最后 测试是否连接成功：
+    ssh -T git@github.com
+
+### 出现下列字样则说明成功
+    Hi 名称! You've successfully authenticated, but GitHub does not provide shell access.

@@ -1,0 +1,39 @@
+name="newname"
+sudo useradd $name -m -s /bin/bash
+passwd $name
+echo "654321"
+echo "654321"
+
+
+### 登陆62用户 命令
+ssh shengjindong@192.168.0.62
+
+### 添加 SVN命令
+sudo htpasswd -mb /media/bak_data/authfile  name passwd
+
+### 这边需要修改了三个文件
+/media/bak_data/authz.conf
+/media/bak_data/conf/authz
+/media/bak_data/conf/passwd
+
+### ubuntu文件 通过samba共享添加用户
+/etc/samba/smb.conf 配置用户链接文件
+sudo smbpasswd -a 增加用户名
+在window电脑上，映射网络驱动，地址为： \\\\服务器IP\smb.conf配置的路径
+重启samba服务
+sudo /etc/init.d/smbd restart
+
+### ubuntu系统把服务器文件挂载到本地
+sshfs shengjindong@192.168.0.62:/home/服务器文件路径 /home/本地文件路径
+
+### 查找安装包
+dpkg -l | grep 安装包名字
+
+### 定时关机
+shutdown -h +3
+shutdown -h 12:00
+shutdown -r +3(重启）
+
+
+### 删除所有.git 文件夹
+find . -name ".git" -print | xargs rm -rf

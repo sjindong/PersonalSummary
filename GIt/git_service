@@ -1,0 +1,40 @@
+## 流程：
+
+1. 服务器
+
+- 构建git目录
+
+        1.git用户，git组作为仓库管理
+        ssh授权（远程无需密码接入）
+        hook（post-receive）自动部署代码到网站目录
+        网站目录
+
+准备接代码就行啦
+
+2.客户端
+
+       2.  建立开发目录
+        ssh连接key生成
+        git操作。。。
+
+
+## 命令：
+- 阿里CentOS命令
+   yum install git-all
+- 源码编译
+1.  sudo apt-get install git
+2.  sudo adduser git
+3.  password: sjindong (后面填写的都是git用户的详细信息，可以掠过)
+
+4.  su git
+5.  mkdir project.git
+6.  cd project.git
+7.  git init --bare (初始化Git仓库的时候不要创建本地工作目录，.git文件夹下内容直接创建到当前目录下，而不是在.git文件夹中)
+
+8.  cd
+9.  mkdir .ssh
+10.  touch .ssh/authorized_keys
+11.  chmod 600 .ssh/authorized_keys
+12.   cat /tmp/id_rsa_user2.pub >> ~/.ssh/authorized_keys
+13.   chown -R git:git /home/git/project.git
+14.
