@@ -1,0 +1,11 @@
+//安装python3
+sudo apt-get install python3 python3-dev
+//安装build依赖包
+sudo apt-get install build-essential libssl-dev libevent-dev libjpeg-dev libxml2-dev libxslt1-dev
+//安装 pip
+sudo apt-get install python-pip
+ //安装 virtualenv
+//virtualenv是 Python 多版本管理的利器，不同版本的开发调试全靠它了（如果没有安装不同版本的Python则不需要安装了）
+// sudo pip install virtualenv
+ //安装 python2.7 virtualenv
+//virtualenv --no-site-packages -p /usr/bin/python2.7 ~/.venv/python2.7
