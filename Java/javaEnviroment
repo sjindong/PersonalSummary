@@ -1,0 +1,10 @@
+JDK
+环境变量：
+  JAVA_HOME
+D:\Program Files\Java\jdk1.8.0.144;
+
+Path
+%JAVA_HOME%\lib;%JAVA_HOME%\lib\lib;
+
+CLASSPATH
+%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;
