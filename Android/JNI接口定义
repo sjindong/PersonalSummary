@@ -12,7 +12,7 @@ public class JavaClass {
 }
 </code></pre>
 
-CPP文件 cppfile.cpp：
+CPP文件 file1.cpp：
 ----------------------------
 <pre><code>
 #include <&lt;stdlib.h>
@@ -71,7 +71,7 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE := libdevicejni
 LOCAL_LDLIBS := -llog
-LOCAL_SRC_FILES := cppfile.cpp
+LOCAL_SRC_FILES := file1.cpp
 LOCAL_C_INCLUDES += $(JNI_H_INCLUDE)
 LOCAL_SHARED_LIBRARIES := libdl libutils libcutils libfile_op libnvram
 LOCAL_MULTILIB := 32
