@@ -1,0 +1,35 @@
+平台 引用第三方jar包 报错， 而报错内容不影响使用，可以使用 '-dontwarn'
+
+Reading library jar [/media/bak_data/data/shengjindong/eM10/out/target/common/obj/JAVA_LIBRARIES/volley_intermediates/classes.jar]
+Warning: okio.DeflaterSink: can't find referenced class org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+Warning: okio.Okio: can't find referenced class java.nio.file.Files
+Warning: okio.Okio: can't find referenced class java.nio.file.Files
+Warning: okio.Okio: can't find referenced class java.nio.file.Files
+Warning: okio.Okio: can't find referenced class java.nio.file.Path
+Warning: okio.Okio: can't find referenced class java.nio.file.OpenOption
+Warning: okio.Okio: can't find referenced class java.nio.file.Path
+Warning: okio.Okio: can't find referenced class java.nio.file.OpenOption
+Warning: okio.Okio: can't find referenced class org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+Warning: okio.Okio: can't find referenced class java.nio.file.Path
+Warning: okio.Okio: can't find referenced class java.nio.file.OpenOption
+Warning: okio.Okio: can't find referenced class java.nio.file.Path
+Warning: okio.Okio: can't find referenced class java.nio.file.OpenOption
+Warning: okio.Okio: can't find referenced class org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+Warning: there were 14 unresolved references to classes or interfaces.
+         You may need to add missing library jars or update their versions.
+         If your code works fine without the missing classes, you can suppress
+         the warnings with '-dontwarn' options.
+         (http://proguard.sourceforge.net/manual/troubleshooting.html#unresolvedclass)
+Error: Please correct the above warnings first.
+
+解决方案：
+
+1.  android.mk添加命令
+
+    LOCAL_PROGUARD_FLAG_FILES := proguard.cfg
+
+2.  和android.mk同目录下，添加文件proguard.cfg，文件内容：（即后面跟随包名，是的只有一行）
+
+    -dontwarn okio.**
+
+参考文档：[android mk文件编写](http://blog.csdn.net/yoveldf/article/details/52317918) （他这个主要是为了处理混淆产生的问题）

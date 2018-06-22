@@ -1,0 +1,13 @@
+最近 准备自己写个sh脚本文件，
+然后发现在Windows写好了后
+上传Ubuntu，执行命令 chmod +x a.sh ,
+执行文件的时候，一直执行不通。
+
+适用情形：sh脚本文件从没成功执行过
+
+报错1： No such file or directoryblog
+
+解决方法：
+
+  1.检查首行 ：#!/bin/bash
+  2.整个文件是否是linux系统下面写的（window创建的文件，和linux有区别，且该区别无法通过编辑器查看出来）

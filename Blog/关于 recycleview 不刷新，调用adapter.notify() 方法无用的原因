@@ -1,0 +1,32 @@
+这里 当 对 recycleview 绑定好的 adapter，进行数据更新的时候，
+
+往往会出现 调用 一次 adapter.notify() 无效，第二次才会UI更新的情况。
+
+
+
+原因： 这个是因为 通常对数据进行了赋值， 导致对象指定的数据地址改变导致的。
+
+* private List<String> mDatas = new ArrayList<>();
+* private RecycleListAdapter mAdapter;
+*
+* mAdapter = new RecycleListAdapter(context, mDatas);
+*
+* mDatas = new List<String>();    //这个是错误的， 不能直接赋值。 需要调用原有的方法来对数据进行替换。
+
+
+如下所示， 当 整个数据都有变化的时候，那么需要一个个替换掉。
+	当然 如果仅有一个数据改变了，那么就很简单了
+*
+* int min = Math.min(newsData.size(), mDatas.size());
+* for (int i = 0; i < min; i++) {
+*     mDatas.add(i, newsData.get(i));
+* }
+* if (min < newsData.size()){
+*     for (int i = min; i < newsData.size(); i++) {
+*         mDatas.add(newsData.get(i));
+*   }
+* }else {
+*     for (int i = min; i < mDatas.size(); i++) {
+*         mDatas.remove(i);
+*   }
+* }

@@ -1,0 +1,18 @@
+Android Studio - Push failed: fatal: Could not read from remote repository
+问题出现的原因：  当时 想 新建个项目，share到 github上面去， 然后 发现 github 只新建了项目，代码文件没有上传
+
+过程：   1.先手动试了下，git push ，还是报错“Push failed: fatal: Could not read from remote repository”
+
+               2.看了stackoverflow 上的 一些回答，  尝试了 AS -Setting -git 的 很多配置 还是不行
+
+               3.使用 GIt的 命令终端 ，进行 git push 操作，还是 失败， 提示我  权限不足；
+
+             这就让我怀疑 应该是key出了问题，然后 我去查看了 我的key 文件      （window下 路径： C:\Users\用户名\.ssh）
+
+              发现 文件名字已经被我修改， 不是初始的id_rsa,改成 初始名字，果然就好了
+
+结论：  把 key 的文件名称 改成 初始的， id_rsa  和 id_rsa.pub 文件，
+
+            AS 无法识别出 我们自己命名的文件
+
+--------------------------------------------------------------------------------------------------------

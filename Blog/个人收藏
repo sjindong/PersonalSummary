@@ -1,3 +1,49 @@
+仅作个人 mark，收藏
+
+1. [小探Android应用层原理--《Android开发精要》](http://brainku.github.io/2014/10/01/reading-android-kaifa-jingyao/)
+
+2.[六款值得推荐的android（安卓）开源框架简介](http://www.jb51.net/article/51052.htm)
+
+3.[好用的Markdown编辑器一览](http://www.williamlong.info/archives/4319.html)
+
+4.[ATOM使用教程--极客网](http://wiki.jikexueyuan.com/project/atom/)
+
+5.[HEXO+Github,搭建属于自己的博客](http://www.jianshu.com/p/465830080ea9)
+
+   [Windows下一步步搭建自己的独立博客——使用 GitHub Pages + Hexo 基础教程（一）](http://yangruihan.com/2015/03/22/Windows%E4%B8%8B%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%20GitHub%20Pages%20+%20Hexo%20%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/)
+
+（PS：github搭建blog还是件很简单的事情，网上还有几个介绍的很详细的教程）
+
+6.[HEXO入门指南](http://www.maintao.com/2014/hexo-beginner's-guide/)
+
+7.[从零开始定制hexo主题](http://www.maintao.com/2014/hexo-theme-from-scratch/)
+
+8.[Markdown 语法说明 (简体中文版) （完整版）](http://wowubuntu.com/markdown/index.html)   -----------里面还有个快速入门的版本
+
+9.[Github中 MarkDown的介绍](https://guides.github.com/features/mastering-markdown/)
+
+10.[学习资源Node.js](https://github.com/nswbmw/N-blog/issues)
+
+11.[细说linux挂载——mount，及其他……](http://forum.ubuntu.org.cn/viewtopic.php?f=120&t=257333)
+
+12.[电子工程世界论坛](http://bbs.eeworld.com.cn/forum-131-1.html) （主要看个嵌入式系统）
+
+13.[ 简单实现安卓app自动更新功能](http://blog.csdn.net/wuyinlei/article/details/50771822)
+
+14.[【合集】用Raspberry Pi（树莓派）打造各种服务器](http://blog.csdn.net/xzknet/article/details/38989471)
+
+15.[树莓派 使用Android机当显示器](http://www.eeboard.com/bbs/thread-32953-1-1.html)
+
+16.[牛客网--自称是专业IT笔试网](http://www.nowcoder.com/)
+
+17.[Android开源项目分类汇总（特别多，分类也仔细）](http://hunankeda110.iteye.com/blog/2103569)
+
+18.[2017Android通用流行框架大全---对自己好点（还是写上博主名字吧）](http://blog.csdn.net/shadowliucs/article/details/54692002)
+
+19.[2017年,身为Android开发的你必须要掌握的热门开源框架](http://blog.csdn.net/watertekhqx/article/details/60140552)
+
+20.
+
 React Native 从入门到原理 [http://www.jianshu.com/p/978c4bd3a759]
 Android常用的框架有哪些[http://blog.csdn.net/zengguangchun/article/details/52778649]
 Android----MVC、MVP、MVVM、区别介绍 [http://blog.csdn.net/copy_yuan/article/details/51524667]
@@ -19,7 +65,7 @@ Android 使用Socket实现服务器与手机客户端的长连接六：二次封
 
  Android RSA加密解密[http://blog.csdn.net/jdsjlzx/article/details/41441147]
  在Android使用RSA 算法加解密[http://blog.csdn.net/l_serein/article/details/7033655]
- 
+
  图解Android - Android GUI 系统 (1) - 概论[http://www.cnblogs.com/samchen2009/p/3364327.html]
  AppIconNameChanger[https://github.com/myinnos/AppIconNameChanger]
  AndroidXRef在线看源码[http://androidxref.com/]
