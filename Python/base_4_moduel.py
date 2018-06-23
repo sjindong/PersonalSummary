@@ -17,3 +17,16 @@ __author__ = 'SJD'  #自定义变量，装逼告诉别人 这是谁写的;同时
 
 import sys #导入模块
 sys.argv
+
+
+name      # 正常参数，随意使用（public）
+__name__  #可以直接使用，但是有特殊用途。
+__name    #私有参数，非公开（private)
+
+
+## 第三方模块
+#普通模式
+pip install Pillow
+
+#第三方整合模式
+Anaconda
