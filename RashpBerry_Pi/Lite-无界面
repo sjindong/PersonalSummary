@@ -6,3 +6,9 @@ sudo apt-get install vsftpd
 （修改的时候要非常小心，不要修改到无关的配置）
 重启 vsftp服务器：
 输入：sudo /etc/init.d/vsftpd restart
+
+
+关闭蓝牙:
+修改/boot/config.txt，在最后添加 
+#disable-bluetooth
+dtoverlay=pi3-disable-bt
