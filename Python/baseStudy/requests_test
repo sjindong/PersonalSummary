@@ -1,0 +1,14 @@
+#!/usr/bin/env python3    #linux使用，window忽略
+# -*- coding: utf-8 -*-
+
+import requests
+r = requests.get('https://www.douban.com') #
+r.encoding = 'utf-8'
+# r.encoding='gbk'
+print (r.status_code)
+print (r.encoding)
+data = r.text
+
+from io import BytesIO
+with open('/data', 'w',encoding='utf-8') as f:
+	f.write(data)
