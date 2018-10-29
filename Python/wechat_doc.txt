@@ -1,0 +1,26 @@
+
+网页版 微信 从 浏览器打开
+https://mp.weixin.qq.com/s?__biz=MzA5NDI3NTYzNg==&mid=2651598249&idx=1&sn=385c36755e50fc8c44e9ebf1fd7c0e7d
+ 承接上述链接，但是去掉完全没影响 
+ &chksm=8ba99cf2bcde15e43fe1fbe6c331f4c8c8ee41ba74a4eaaab434bb75677785121c958b5583de&scene=0#rd
+
+微信移动客户端 复制链接分享
+https://mp.weixin.qq.com/s/ik4ech9hVHhu-9fo3J8HTg
+
+微信PC客户端 复制链接分享
+https://mp.weixin.qq.com/s/ik4ech9hVHhu-9fo3J8HTg
+
+
+微信客户端 公众号首页链接
+https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MTQzMjE1NjQwMQ==&scene=126#wechat_redirect
+（scene 是什么 不知道， 但是任意输入都可以，而且去掉也没问题）
+
+同公众号 另一篇文章
+https://mp.weixin.qq.com/s/b87RS_nWDCLRvsKeu5VfaA
+
+
+
+__biz：可以认为是微信公众平台对外公布的公众帐号的唯一id
+mid  ：是图文消息id
+idx  ：是发布的第几条消息(1就代表是头条位置消息)
+sn   ：是一个随机加密串(对于一篇图文消息是唯一的，如果你想问这个sn的生成规则是什么或者怎么破解，你基本上只能从微信公众平台开发团队才能得到答案)
